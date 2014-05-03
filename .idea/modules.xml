@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../../joozey/Projects/Apex/Apex.iml" filepath="$PROJECT_DIR$/../../../joozey/Projects/Apex/Apex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../joozey/Projects/Apex/Apex/Apex-Apex.iml" filepath="$PROJECT_DIR$/../../../joozey/Projects/Apex/Apex/Apex-Apex.iml" />
+    </modules>
+  </component>
+</project>
+
