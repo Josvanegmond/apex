@@ -8,16 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.List;
-
 /**
  * Created by mint on 5/2/14.
  */
-public class NametagAdapter extends ArrayAdapter<NameValue> implements View.OnClickListener
+public class NametagAdapter extends ArrayAdapter<Person> implements View.OnClickListener
 {
     private static class NameHolder
     {
-        public NameValue nameValue;
+        public int personId;
         public View tagView;
         public TextView nameView;
         public TextView pointButton;
@@ -30,13 +28,11 @@ public class NametagAdapter extends ArrayAdapter<NameValue> implements View.OnCl
         return Color.argb( 255, 255 - Math.max(0, points), 255 + Math.min( 0, points ), 24 );
     }
 
-    private boolean addPoints;
-    private List<NameValue> nameList;
+    private boolean addPoints = true;
 
-    public NametagAdapter( Context context, int entryId, List<NameValue> nameList )
+    public NametagAdapter( Context context, int entryId )
     {
-        super(context, entryId, nameList);
-        this.nameList = nameList;
+        super(context, entryId, PersonFactory.getInstance().getParticipants() );
     }
 
     public void invertPoints() {
@@ -46,62 +42,61 @@ public class NametagAdapter extends ArrayAdapter<NameValue> implements View.OnCl
 
 
     @Override
-    public View getView( int i, View view, ViewGroup viewGroup )
+    public View getView( int position, View tagView, ViewGroup viewGroup )
     {
         NameHolder holder = null;
-        NameValue nameValue = nameList.get( i );
+        Person person = PersonFactory.getInstance().getParticipant(position);
 
-        if( view == null )
+        if( tagView == null )
         {
             LayoutInflater inflater = (LayoutInflater) viewGroup.getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate( R.layout.name_tag,  viewGroup, false );
+            tagView = inflater.inflate( R.layout.name_tag, viewGroup, false );
 
-            TextView nameView = (TextView)view.findViewById( R.id.nametag_name );
-            nameView.setText( nameValue.getName() );
+            TextView nameView = (TextView)tagView.findViewById( R.id.nametag_name );
+            nameView.setText( person.getName() );
 
-            TextView pointView = (TextView) view.findViewById( R.id.point_view );
-            pointView.setText( nameValue.getPoints() + "" );
+            TextView pointView = (TextView) tagView.findViewById( R.id.point_view );
+            pointView.setText( person.getPoints() + "" );
 
-            TextView pointButton = (TextView) view.findViewById( R.id.point_button );
+            TextView pointButton = (TextView) tagView.findViewById( R.id.point_button );
             pointButton.setOnClickListener( this );
 
             holder = new NameHolder();
-            holder.tagView = view;
+            holder.personId = position;
             holder.nameView = nameView;
-            holder.pointButton = pointButton;
             holder.pointView = pointView;
-            holder.nameValue = nameValue;
+            holder.pointButton = pointButton;
+            holder.tagView = tagView;
 
-            view.setTag( R.string.entry_holder, holder );
+            tagView.setTag( R.string.entry_holder, holder );
             pointButton.setTag( R.string.entry_holder, holder );
         }
 
         else
         {
-            holder = (NameHolder)view.getTag( R.string.entry_holder );
+            holder = (NameHolder)tagView.getTag( R.string.entry_holder );
+            holder.personId = position;
+            person = PersonFactory.getInstance().getParticipant( holder.personId );
         }
 
-        holder.nameValue = nameValue;
-        holder.nameView.setText( nameValue.getName() );
-        holder.pointView.setText( nameValue.getPoints() + "" );
+        holder.nameView.setText( person.getName() );
+        holder.pointView.setText( person.getPoints() + "" );
         holder.pointButton.setText( (this.addPoints == true) ? "+" : "-");
-        holder.tagView.setBackgroundColor(getColor(nameValue.getPoints()));
+        holder.tagView.setBackgroundColor(getColor(person.getPoints()));
 
-        return view;
+        return tagView;
     }
-
-
 
     public void onClick( View view )
     {
         NameHolder holder = (NameHolder)view.getTag( R.string.entry_holder );
-        NameValue nameValue = holder.nameValue;
+        Person person = PersonFactory.getInstance().getParticipant( holder.personId );
 
-        nameValue.addPoints( (this.addPoints == true) ? 10 : -10 );
+        person.addPoints( (this.addPoints == true) ? 10 : -10 );
 
-        holder.pointView.setText( nameValue.getPoints() + "" );
-        holder.tagView.setBackgroundColor( getColor( nameValue.getPoints() ) );
+        holder.pointView.setText( person.getPoints() + "" );
+        holder.tagView.setBackgroundColor( getColor( person.getPoints() ) );
     }
 
 }

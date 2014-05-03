@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#66000000"
-    android:orientation="vertical"
-    android:padding="48dp">
+    android:orientation="vertical">
 
     <EditText
         android:layout_width="match_parent"
@@ -28,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirm"
-        android:id="@+id/button"
+        android:id="@+id/addperson_confirm"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
         android:onClick="addPersonConfirmed" />

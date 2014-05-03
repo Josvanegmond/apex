@@ -59,15 +59,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background"
-        android:layout_weight="0">
+        android:layout_weight="0"
+        android:id="@+id/parent_fragment_layout">
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/nametaglist"
-            android:dividerHeight="16dp"
-            android:background="#00000000"
-            android:padding="12dp" />
     </FrameLayout>
 
 </LinearLayout>
