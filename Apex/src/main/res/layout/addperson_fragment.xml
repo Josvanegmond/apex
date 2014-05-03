@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:background="#66000000"
+    android:orientation="vertical"
+    android:padding="48dp">
 
-    <fragment
-        android:orientation="vertical"
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="android.app.ListFragment"
-        class="joozey.apps.apex.AddPersonFragment" />
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Participant Name"
+        android:ems="10"
+        android:id="@+id/addperson_name"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addperson_info"
+        android:layout_gravity="center_horizontal"
+        android:text="Participant Info"
+        android:layout_marginTop="24dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:onClick="addPersonConfirmed" />
 
 </LinearLayout>

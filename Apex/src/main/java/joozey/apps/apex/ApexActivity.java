@@ -1,6 +1,7 @@
 package joozey.apps.apex;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 
 public class ApexActivity extends Activity {
 
+    private Fragment addPersonFragment;
     private NametagAdapter nametagAdapter;
 
     @Override
@@ -42,8 +44,9 @@ public class ApexActivity extends Activity {
 
     public void addPerson( View button )
     {
+        addPersonFragment = new AddPersonFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.rootLayout, new AddPersonFragment());
+        ft.replace(R.id.rootLayout, addPersonFragment);
         ft.commit();
     }
 
@@ -54,6 +57,13 @@ public class ApexActivity extends Activity {
 
     public void deletePerson( View button )
     {
+
     }
 
+    public void addPersonConfirmed( View button )
+    {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.remove(addPersonFragment);
+        ft.commit();
+    }
 }
